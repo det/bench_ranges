@@ -1,12 +1,11 @@
-FLAGS=-Wall -Wpedantic -std=c++14 -Isubmodule/range-v3/include/
-CLANG_FLAGS=${FLAGS} -stdlib=libc++ -lc++abi
-GCC_FLAGS=${FLAGS}
+COMMON_FLAGS=-Wall -Wpedantic -std=c++14 -Isubmodule/range-v3/include/
+CLANG_FLAGS=${COMMON_FLAGS} -stdlib=libc++ -lc++abi
+GCC_FLAGS=${COMMON_FLAGS}
 
-HEADERS=bench.hpp
-FORWARD_HEADERS=${HEADERS} forward_iterator.hpp insertion_sort.hpp
-FORWARD_N_HEADERS=${HEADERS} forward_iterator.hpp insertion_sort_n.hpp
-RANDOM_HEADERS=${HEADERS} insertion_sort.hpp
-RANDOM_N_HEADERS=${HEADERS} insertion_sort_n.hpp
+FORWARD_HEADERS=bench.hpp forward_iterator.hpp insertion_sort.hpp
+FORWARD_N_HEADERS=bench.hpp forward_iterator.hpp insertion_sort_n.hpp
+RANDOM_HEADERS=bench.hpp insertion_sort.hpp
+RANDOM_N_HEADERS=bench.hpp insertion_sort_n.hpp
 
 COUNT=50000
 REPS=5
@@ -74,7 +73,6 @@ gcc_random: bench_random_gcc_opt2 bench_random_gcc_opt3
 gcc_random_n: bench_random_n_gcc_opt2 bench_random_n_gcc_opt3
 gcc: gcc_forward gcc_forward_n gcc_random gcc_random_n
 
-
 define bench
 	@echo -n "$1: "
 	@for i in {0..${REPS}}; do $2 ${COUNT}; done | sort -n | head -1
@@ -124,5 +122,9 @@ clean_gcc:
 
 clean: clean_gcc clean_clang
 
-.PHONY: bench_clang bench_gcc bench clean_clang clean_gcc clean
+.PHONY: clang_forward clang_forward_n clang_random clang_random_n clang
+.PHONY: gcc_forward gcc_forward_n gcc_random gcc_random_n gcc
+.PHONY: bench_clang bench_gcc bench
+.PHONY: clean_clang clean_gcc clean
+.PHONY: all
 
