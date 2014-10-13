@@ -3,9 +3,8 @@
 
 int main(int argc, char * * argv)
 {
-    bench(argc, argv, [&](auto & data, auto count)
+    bench(argc, argv, [&](auto first, auto count)
     {
-        auto it = data.get();
-        insertion_sort(ranges::view::counted(it, count));
+        insertion_sort(ranges::view::counted(first, count));
     });
 }

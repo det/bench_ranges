@@ -27,7 +27,7 @@ void bench(int argc, char **argv, Functor functor, Args && ... args)
     std::shuffle(first, last, engine);
 
     auto start = std::chrono::high_resolution_clock::now();
-    functor(data, count, std::forward<Args>(args) ...);
+    functor(first, count, std::forward<Args>(args) ...);
     auto stop = std::chrono::high_resolution_clock::now();
 
     if (!std::is_sorted(first, last)) throw std::runtime_error{"Insertion sort failed"};

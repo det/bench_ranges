@@ -4,9 +4,8 @@
 
 int main(int argc, char **argv)
 {
-    bench(argc, argv, [&](auto & data, auto count)
+    bench(argc, argv, [&](auto first, auto count)
     {
-        auto it = make_forward_iterator(data.get());
-        insertion_sort(ranges::view::counted(it, count));
+        insertion_sort(ranges::view::counted(make_forward_iterator(first), count));
     });
 }
