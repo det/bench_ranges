@@ -2,15 +2,12 @@
 
 #include <algorithm>
 #include <chrono>
-#include <cstdlib>
 #include <memory>
+#include <numeric>
 #include <iostream>
+#include <random>
 #include <stdexcept>
 #include <utility>
-
-#include <range/v3/algorithm.hpp>
-#include <range/v3/range.hpp>
-#include <range/v3/view.hpp>
 
 template<typename Functor, typename ... Args>
 void bench(int argc, char **argv, Functor functor, Args && ... args)
@@ -33,5 +30,5 @@ void bench(int argc, char **argv, Functor functor, Args && ... args)
     if (!std::is_sorted(first, last)) throw std::runtime_error{"Insertion sort failed"};
 
     auto ns = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
-    std::cout << ns.count() / 1000000.0 << "\n";    
+    std::cout << ns.count() / 1000000.0 << "\n";
 }

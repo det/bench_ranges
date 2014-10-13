@@ -1,7 +1,9 @@
 #include "bench.hpp"
 #include "insertion_sort.hpp"
 
-int main(int argc, char * * argv)
+#include <range/v3/view.hpp>
+
+int main(int argc, char **argv)
 {
     bench(argc, argv, [&](auto first, auto count)
     {
